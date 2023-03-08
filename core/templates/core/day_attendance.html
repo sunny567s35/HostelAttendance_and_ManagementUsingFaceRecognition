@@ -1,0 +1,73 @@
+
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8"> 
+    <link rel="icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
+    <title>Download Attendance</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <header style="position:fixed;top: 3px;">
+      {% for message in messages %}
+      <div  role="alert" >
+          <strong>Message:</strong> {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button><br>
+      </div>
+      {% endfor %}
+  </header>
+    <form method="" action="download/">
+    <div class="wrapper">
+      <header>
+        <h1>Download Attendance </h1>
+        <p>Enter date and hostel name</p>
+      </header>
+      <div class="form">
+        <p>Enter date :</p><input type="date" name="date" Required><br><br>
+        <span> &nbsp; Status :    </span>
+        <select name="present" id="present" required>
+          <option value="">None</option>
+          <option value="Absent">Absent</option>
+          <option value="Present">Present</option>
+          <option value="Both">Both</option>
+        </select>
+        <span> &nbsp; Hostel :    </span>
+        <select name="hostel" id="hostel" required>
+          <option value="">None</option>
+          <option value="All">All</option>
+          <option value="cvr">cvr</option>
+          <option value="asr">asr</option>
+          <option value="vvk">vvk</option>
+        </select>
+        <span> &nbsp; NonAC/AC :    </span>
+        <select name="hosteltype" id="hosteltype" required>
+          <option value="">None</option>
+          <option value="All">All</option>
+          <option value="Non AC">Non AC</option>
+          <option value="AC">AC</option>
+        </select>
+        <span> &nbsp; Options:    </span>
+        <select name="option" id="option" required>
+          <option value="">None</option>
+          <option value="view">view</option>
+          <option value="download">Download</option>
+        </select>
+        <a href="{% url 'download'  %}"><button type="submit" >Download</button></a><br>
+      </div>
+    </div>
+  </form>
+  </body>
+</html>
+{%else%}
+
+
+<h1>Your session closed,Please Login Again!!!</h1>
+{% endif %}
+{% endblock content %}

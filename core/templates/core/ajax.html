@@ -1,0 +1,10 @@
+{% if user.is_authenticated %}
+{{last_face}}
+{%else%}
+
+<head>
+    <link rel="icon" type="image/x-icon" href="static/img/logo.png">
+</head>
+<h1>Your session closed,Please Login Again!!!</h1>
+
+{% endif %}

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style_sign.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+</head>
+<style>
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+        -webkit-box-shadow: 0 0 0 30px #6a7385a1 inset !important;
+    }
+    .watermark{
+        width: 140px;
+        height: 100px;
+        margin: auto;
+        position:inherit;
+        margin-left: 40px;
+    }
+</style>
+
+
+<body >
+    <header style="position:fixed;top: 3px;">
+        {% for message in messages %}
+        <div  role="alert" >
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button><br>
+        </div>
+        {% endfor %}
+    </header>
+    <div class="container">
+           <centre><img class="watermark" src="{% static 'img/logo.png'%}" alt=""></centre> 
+    <h1>Log In </h1>
+    <form method="post" action="/signin" class="mb-2">
+        {% csrf_token %}
+        <div class="form-control">
+            
+            <input  style="color:'white'" type="text"  id="username" name="username" Required >
+            <label for="username"><span>Username</span></label>
+        </div>
+        <div class="form-control">
+            <input type="password"  id="pass1" name="pass1"  Required>
+            <label for="pass1"><span>Password</span></label>
+        </div>
+
+        <button type="submit" class="btn">Log In</button>
+    </form>
+    </div>
+
+
+
+</body>
+</html>

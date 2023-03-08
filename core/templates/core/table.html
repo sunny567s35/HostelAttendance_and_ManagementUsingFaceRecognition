@@ -1,0 +1,42 @@
+
+
+<html>
+<head>
+    <style>
+        th{
+            padding : 10px;
+        }
+        tr{
+            padding :10px;
+        }
+        td{
+            padding:10px;
+        }
+        thead{
+            background-color: #00425A;
+            color : white;
+        }
+        table {
+    border-collapse: separate;
+    text-indent: initial;
+    white-space: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-size: medium;
+    font-style: normal;
+    color: -internal-quirk-inherit;
+    text-align: start;
+    border-spacing: 0;
+    font-variant: normal;
+    }
+    </style>
+</head>
+<body style="background-color: whitesmoke;"><br><br>
+    <div><center><h3>{{string}}</h3></center></div>
+    <br>
+    <br>
+    <div >
+    <center>{% autoescape off %}{{ table_content }}{% endautoescape %}</center>
+    </div>
+</body>
+</html>

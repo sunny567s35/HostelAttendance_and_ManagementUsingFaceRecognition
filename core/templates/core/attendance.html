@@ -1,0 +1,216 @@
+
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8"> 
+    <link rel="icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
+    <title>Download Attendance</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <header style="position:fixed;top: 3px;">
+      {% for message in messages %}
+      <div  role="alert" >
+          <strong>Message:</strong> {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button><br>
+      </div>
+      {% endfor %}
+  </header>
+  <div class="form">
+  <div id="attendance">
+    <centre><img class="watermark" src="{% static 'img/logo.png'%}" alt=""></centre>
+    <center><h1>Attendance</h1></center> 
+    <button type="button"  onclick="studentreport()">Student Attendance</button>
+    <script>
+      function studentreport() {
+        var x = document.getElementById("studentreport");
+        var y = document.getElementById("attendance");
+        if (x.style.display === "none") {
+           x.style.display = "block";
+           y.style.display="none";
+          }
+       else {
+            x.style.display = "none";
+            y.style.display = "block";
+          }
+      }
+    </script>
+    <button type="button"  onclick="monthattendance()">Month Attendance</button>
+    <script>
+      function monthattendance() {
+        var x = document.getElementById("monthattendance");
+        var y = document.getElementById("attendance");
+        if (x.style.display === "none") {
+           x.style.display = "block";
+           y.style.display="none";
+          }
+       else {
+            x.style.display = "none";
+            y.style.display = "block";
+          }
+      }
+    </script>
+    <button type="button"  onclick="dayattendance()">Day Attendance</button>
+    <script>
+      function dayattendance() {
+        var x = document.getElementById("dayattendance");
+        var y = document.getElementById("attendance");
+        if (x.style.display === "none") {
+           x.style.display = "block";
+           y.style.display="none";
+          }
+       else {
+            x.style.display = "none";
+            y.style.display = "block";
+          }
+      }
+    </script>
+    <button type="button"  onclick="hostelreport()">Hostel Report</button>
+    <script>
+      function hostelreport() {
+        var x = document.getElementById("hostelreport");
+        var y = document.getElementById("attendance");
+        if (x.style.display === "none") {
+           x.style.display = "block";
+           y.style.display="none";
+          }
+       else {
+            x.style.display = "none";
+            y.style.display = "block";
+          }
+      }
+    </script>
+  </div>
+  </div>
+  <div id="hostelreport" style="display: none;" class="form">
+    <form method='get' action="/month_attendance/hostelreport">
+      <div class="wrapperhostelreport">
+        <header>
+          <h1>Hostel Report</h1>
+        </header><br>
+      <p>Enter date :</p><input type="date" name="date" Required><br><br>
+      <span> &nbsp; Options:    </span>
+          <select name="option" id="option" required>
+            <option value="">None</option>
+            <option value="view">view</option>
+            <option value="download">Download</option>
+          </select>
+      <a href="{% url 'hostelreport'  %}"><button type="submit" class="btn btn-outline-primary">Submit</button></a>
+      </div>
+    </form>
+  </div>
+  <div id="dayattendance" style="display: none;" >
+    <form method="" action="/month_attendance/dayattendance/">
+      <div class="wrapperdayattendance">
+        <header>
+          <h1>Day Attendance </h1>
+          <h4>Enter date and hostel name</h4><br>
+        </header>
+        <div class="form">
+          <input type="date" name="date" Required><br><br>
+          <span> &nbsp; Status &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:    </span>
+          <select name="present" id="present" required>
+            <option value="">None</option>
+            <option value="Absent">Absent</option>
+            <option value="Present">Present</option>
+          </select><br><br>
+          <span> &nbsp; Hostel &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:    </span>
+          <select name="hostel" id="hostel" required>
+            <option value="">None</option>
+            <option value="All">All</option>
+            <option value="cvr">cvr</option>
+            <option value="asr">asr</option>
+            <option value="vvk">vvk</option>
+          </select><br><br>
+          <span> &nbsp; NonAC/AC &nbsp;&nbsp;:    </span>
+          <select name="hosteltype" id="hosteltype" required>
+            <option value="">None</option>
+            <option value="All">All</option>
+            <option value="Non AC">Non AC</option>
+            <option value="AC">AC</option>
+          </select><br><br>
+          <span> &nbsp; Options&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:    </span>
+          <select name="option" id="option" required>
+            <option value="">None</option>
+            <option value="view">view</option>
+            <option value="download">Download</option>
+          </select><br>
+          <a href="{% url 'download'  %}"><button type="submit" >Submit</button></a><br>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div id="studentreport" style="display: none;" class="form">
+        <form method='get' action="/month_attendance/studentreport/">
+          <div class="wrapper">
+          <header>
+            <h1>Student Attendance </h1>
+            <br>
+          </header>
+        
+          <p>From :</p><input type="date" name="date1" Required><br>
+          <p>To :</p><input type="date" name="date2" Required><br><br>
+        <p>Enter phone no &nbsp;&nbsp;:</p><input type="text" name="phone" placeholder="phone number"><br><br>
+        <span> &nbsp; Options &nbsp;&nbsp;:    </span>
+        <select name="option" id="option" required>
+          <option value="">None</option>
+          <option value="view">view</option>
+          <option value="download">Download</option>
+        </select>
+        <a href="{% url 'studentreport'  %}"><button type="submit">Submit</button></a>
+        </form>
+      </div>
+      </div>
+    <div id="monthattendance" style="display: none;">
+    <form method="" action="attendanceview/">
+    <div class="wrapper">
+      <header>
+        <h1>Month Attendance </h1>
+        <h4>Enter date and hostel name</h4>
+      </header>
+      <div class="form">
+    <div>
+        <p>From :</p><input type="date" name="date1" Required><br>
+        <p>To :</p><input type="date" name="date2" Required><br><br>
+        <span> &nbsp; Hostel  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </span>
+        <select name="hostel" id="hostel" required>
+          <option value="">None</option>
+          <option value="All">All</option>
+          <option value="cvr">cvr</option>
+          <option value="asr">asr</option>
+          <option value="vvk">vvk</option>
+        </select><br><br>
+        <span> &nbsp; NonAC/AC    &nbsp; :</span>
+        <select name="hosteltype" id="hosteltype" required>
+          <option value="">None</option>
+          <option value="All">All</option>
+          <option value="Non AC">Non AC</option>
+          <option value="AC">AC</option>
+        </select><br><br>
+        <span> &nbsp; Option &nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;: </span>
+        <select name="option" id="option" required>
+          <option value="">None</option>
+          <option value="view">view</option>
+          <option value="download">Download</option>
+        </select>
+        <a href="{% url 'attendanceview'  %}"><button type="submit" >Submit</button></a><br>
+     </div>
+    </div>
+  </form>
+</div>
+  </body>
+</html>
+{%else%}
+
+
+<h1>Your session closed,Please Login Again!!!</h1>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,10 @@
+1. Model updation
+2. Added roomno(room Number)
+3.warden signin,signout,signup (html and backend)
+4.Attendance downloads
+5.manual attendance
+ 
+ ###to do
+ 1.ui 
+ 2.depoly
+ 3.testing

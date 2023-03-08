@@ -1,0 +1,70 @@
+{% load static %}
+{% if request.user.is_superuser %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/style_sign.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+    <style>
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px #6a7385a1 inset !important;
+        }
+    </style>
+</head>
+<body>
+    
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>Message:</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button><br>
+    </div>
+    {% endfor %}
+    <div class="container">
+    <h1>Create your account!</h1>
+    <form method="post" action="/signup">
+        {% csrf_token %}
+        <div class="form-control">
+            
+            <input type="text" class="form-control" id="username" name="username"  Required>
+            <label for="username"><span>Username</span></label>
+        </div>
+        <div class="form-control">
+            
+            <input type="text" class="form-control" id="fname" name="fname"  Required>
+            <label for="fname"><span>First Name</span></label>
+        </div>
+        <div class="form-control">
+            
+            <input type="text" class="form-control" id="lname" name="lname"  Required>
+            <label for="lname"><span>Last Name</span></label>
+        </div>
+
+        <div class="form-control">
+            
+            <input type="password" class="form-control" id="pass1" name="pass1"  Required>
+            <label for="pass1"><span>Password</span></label>
+        </div>
+        <div class="form-control">
+            <input type="password" class="form-control" id="pass2" name="pass2"  Required>
+            <label for="pass2"><span>Confirm Password</span></label>
+        </div>
+        <button type="submit" class="btn">Sign Up</button>
+    </form>
+    </div>
+
+{%else%}
+
+
+<center><h1>Access Denied!!!</h1></center>
+</body>
+</html>
+{% endif %}

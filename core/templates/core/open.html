@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/x-icon" href="static/img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'css/style_sign.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+    <style>
+    .watermark{
+        width: 140px;
+        height: 100px;
+        margin: auto;
+    }
+    </style>
+</head>
+
+<body>
+    <header style="position:fixed;top: 3px;">
+        {% for message in messages %}
+        <div  role="alert" >
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button><br>
+        </div>
+        {% endfor %}
+    </header>
+   
+    <div class="container">
+        <div >
+            <center><img class="watermark" src="{% static 'img/logo.png'%}" alt=""></center>
+        </div>
+        <h1>Hostel Attendance</h1>
+        <center><a href="/signin"><button class="btn" type="submit">SignIn</button></a></center>
+    </div>  
+</body>
+</html>

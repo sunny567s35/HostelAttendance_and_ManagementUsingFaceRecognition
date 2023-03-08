@@ -1,0 +1,58 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<head>
+    <link rel="icon" type="image/x-icon" href="static/img/logo.png">
+</head>
+
+<header style="top: 3px;">
+    {% for message in messages %}
+    <div  role="alert" >
+        <strong>Message:</strong> {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button><br>
+    </div>
+    {% endfor %}
+</header>
+
+{% if profile == None %}
+   <div ><p>Sorry invalid number!</p></div>
+{% else %}
+<div class="container emp-profile">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="{{ profile.image.url }}" alt="" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        {{profile.first_name}} {{profile.last_name}}
+                    </h5>
+                    <h6>
+                        {{profile.college }}
+                    </h6>
+                    <p class="proile-rating">ROOM NO  : <span>{{profile.roomno}}</span></p>
+                    <p class="proile-rating">HOSTEL   : <span>{{profile.hostelname}}</span></p>
+                    <p class="proile-rating">PHONE NO : <span>{{profile.phone}}</span></p>
+                </div>
+                <form method='post' action="manual_attendance">
+                    {% csrf_token %}
+                <h1>Manual Attendance</h1>
+                <p>Enter phone :</p><input type="text" name="phone"><br><br>
+                <a href="{% url 'manual_attendance'  %}"><button type="submit" >Present</button></a>
+                </form>
+            </div>
+        </div>
+</div>
+{% endif %}
+
+{%else%}
+
+
+<h1>Your session closed,Please Login Again!!!</h1>
+{% endif %}
+{% endblock content %}
