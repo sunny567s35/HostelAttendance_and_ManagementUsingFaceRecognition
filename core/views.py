@@ -212,12 +212,16 @@ def add_profile(request):
     try:
         if request.method == 'POST':
             form = ProfileForm(request.POST,request.FILES)
+            print(form.is_valid())
             if form.is_valid():
                 #encoding_image(name,image)
                 encoding_image(str(int(request.POST.get("phone"))),request.FILES["image"])
                 form.save()
                 # encoding_image(str(int(request.POST.get("phone"))),request.FILES["image"])
                 return redirect('profiles')
+            else:
+                messages.error(request,"One field is missing ,tryagain!")
+                return redirect('index')
     except:
         messages.error(request,"Try again!add photo and phoneno")
     context={'form':form}
@@ -258,6 +262,9 @@ def edit_profile(request,id):
                 except:
                     messages.error(request,'update Sucessfully!')
                 return redirect('profiles')
+            else :
+                messages.error(request,"Enter All the details !")
+                return redirect('index')
     except Exception as e:
         #print(1)
         #print(e)
@@ -609,7 +616,9 @@ def month_attendance(request):
 @login_required
 def day_attendance(request):
     return render(request,'core/day_attendance.html')
+defaultphone = 0
 @login_required
+
 def manual_checking(request):
     if request.method=='GET':
         phone=request.GET['phone']
@@ -618,10 +627,13 @@ def manual_checking(request):
             return redirect('index')
         try:
             phone=int(phone)
+            global defaultphone 
+            defaultphone= phone
         except:
             messages.error(request,"Check phone number!!")
             return redirect('index')
         try:
+
             profile = Profile.objects.get(pk=phone)
             #print(1)
             context = {'profile': profile}
@@ -632,6 +644,7 @@ def manual_checking(request):
             pass
     return redirect('index')
 @login_required
+
 def manual_attendance(request):
     #print(2)
     date=datetime.now().strftime("%Y-%m-%d")
@@ -648,6 +661,11 @@ def manual_attendance(request):
             phone=request.POST['phone']
             phone=int(phone)
             try:
+                global defaultphone
+                if defaultphone != phone:
+                    messages.error(request,"Number Mismatch !")
+                    return redirect('index')
+                defaultphone=0
                 profile = Profile.objects.get(pk=phone)
                 if profile.present!=True and profile.pk not in att[1]:
                     profile.present=True
@@ -913,12 +931,13 @@ def hostelreport(request):
         att_user=att_db[j]
         if att_user['hostelname'] in hostellist_present.keys():
             hostellist_present[att_user['hostelname']]+=1
-    df={
-        'total_hostel':{'Absent':len(att[0]),'Present':len(att[1])}
-    }
+    df={}
+        
+    
     for h in hostellist_absent.keys():
         d={'Absent':hostellist_absent[h],'Present':hostellist_present[h]}
         df[h]=d
+    df['total_hostel'] = {'Absent':len(att[0]),'Present':len(att[1])}
     dt = pd.DataFrame(df)
     dt=dt.T
     print(df)

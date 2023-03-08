@@ -28,7 +28,7 @@
           width: 220px;
           height: 220px;
           position: relative;
-          top: -216px;
+          top: -220px;
           border-left-color: transparent;
           border-right-color: transparent;
           animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
@@ -38,17 +38,18 @@
           width: 240px;
           height: 240px;
           position: relative;
-          top: -452px;
+          top: -440px;
           border-left-color: transparent;
           border-right-color: transparent;
           animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
         }
+
         #loader4 {
           border: 3px solid #94B6E5;
           width: 260px;
           height: 260px;
+          top: -700px;
           position: relative;
-          top: -708px;
           border-left-color: transparent;
           border-right-color: transparent;
           animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
@@ -88,14 +89,44 @@
         <script>
             function loading() {
               var x = document.getElementById("loading");
-              if (x.style.display === "none") {
+              var y1 = document.getElementById("all1");
+              var y2= document.getElementById("all2");
+              var y3= document.getElementById("all3");
+              var y4 = document.getElementById("all4");
+              var e = (document.forms["form"]["first_name"].value.length)*
+              (document.forms["form"]["last_name"].value.length)*
+              (document.forms["form"]["phone"].value.length)*
+              (document.forms["form"]["parentphone"].value.length)*
+              (document.forms["form"]["email"].value.length)*
+              (document.forms["form"]["date"].value.length)*
+              (document.forms["form"]["address"].value.length)*
+              (document.forms["form"]["college"].value.length)*
+              (document.forms["form"]["course"].value.length)*
+              (document.forms["form"]["hostelname"].value.length)*
+              (document.forms["form"]["hosteltype"].value.length)*
+              (document.forms["form"]["shift"].value.length)*
+              (document.forms["form"]["roomno"].value.length)*
+              (document.forms["form"]["image"].value.length);
+              console.log(e);
+                if (e==0)
+                { 
+                  console.log("1");
+                 alert("Once check the fileds!!"); 
+                 return; 
+                }  
+                if (x.style.display === "none") {
                  x.style.display = "block";
-                }
+                 y1.style.cssText='opacity:0.3;';
+                 y2.style.cssText='opacity:0.3;';
+                 y3.style.cssText='opacity:0.3;';
+                 y4.style.cssText='opacity:0.3;';
+                 x.style.opacity=1;
+                }	
                 
             }
           </script>
 </head>
-
+<body >
 {% for message in messages %}
     <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="background-color: aquamarine;">
         <strong>Message:</strong> {{ message }}
@@ -108,10 +139,10 @@
 
 <div class = "bckgrnd" >
 <div class="container emp-profile pb-3">
-    <form method="POST" action="." class="needs-validation" enctype='multipart/form-data'>
+    <form name="form"  method="POST" action="." class="needs-validation" enctype='multipart/form-data'>
         {% csrf_token %}
-        <div class="row">
-            <div class="col-md-4">
+        <div class="row" >
+            <div class="col-md-4" id="all1">
                 <h5 class="text-muted">Personal Informations:</h5><br>
 
                 <div class="d-flex justify-content-between">
@@ -148,7 +179,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" id="all2">
                 <h5 class="text-muted">College Informations:</h5><br>
                 <div class="m-1">
                     <label class="text-muted"><small>College:</small></label>
@@ -176,7 +207,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" id="all3">
                 <h5 class="text-muted">Biometric Photo:</h5><br>
                 <div>
                     <div class="alert alert-warning">
@@ -195,6 +226,8 @@
                     {{ form.image }}
                 </div>
             </div>
+            
+              
             <div class="spin-container" id="loading" style="display: none">
                 <center>
                 <div style="position: absolute; top: 40%; left: 40%; ">
@@ -208,8 +241,10 @@
                 </span></div>
             </center>
               </div>
+           
+            
         </div>
-        <div class="mt-3">
+        <div class="mt-3" id="all4">
             <button type="submit" class="btn btn-outline-success m-1" onclick="loading()">Save</button>
             <a href="{% url 'profiles'%}"><button type="button" class="btn btn-outline-danger m-1">Cancel</button></a>
             <p>*After Submit ,Please wait 1min for image encoding and reload page!!</p>
@@ -224,3 +259,4 @@
 
 {% endif %}
 {% endblock content %}
+</body>
