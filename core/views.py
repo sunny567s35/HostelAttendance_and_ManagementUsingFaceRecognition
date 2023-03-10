@@ -127,7 +127,7 @@ def scan(request):
                     name = known_face_names[best_match_index]
                     profile = Profile.objects.get(pk=name)
                     name1=profile.first_name
-                    if profile.present == True or profile.pk in att[1]:
+                    if  profile.pk in att[1]:
                         # messages.error(request,'Already present!')
                         pass
                     else:

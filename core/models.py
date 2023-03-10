@@ -5,7 +5,7 @@ from django.db import models
 
 
 
-types = [('None','None'),('cvr','cvr'),('asr','asr'),('vvk','vvk'),('vsr','vsr'),('sac','sac')]
+types = [('None','None'),('cvr','cvr'),('asr','asr'),('vvk','vvk'),('vsr','vsr'),('sac','sac'),('dvr','dvr')]
 H_types=[('None','None'),('AC','AC'),('Non AC','Non AC')]
 class Profile(models.Model):
     first_name = models.CharField(max_length=70)
